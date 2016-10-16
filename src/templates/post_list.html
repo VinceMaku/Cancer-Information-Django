@@ -1,20 +1,79 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
+{% load staticfiles %}s
 {% block content %}
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' >
+
+
+
+<div class="header">
+  <div class="header-left-panel">
+    <div class="logo-wrap">
+      <div class="logo">
+        <h2></h2>
+        <h1 align="center">Cancer</h1>
+      </div>
+    </div>
+  </div>
+  <div class="header-right-panel">
+    <div class="header-right-panel-top">
+      <p>Call Us : 000 888 8888
+
+    </div>
+    <div class="menu">
+      <ul>
+        <li class="marRight20"><a   href="{% url 'posts:index' %}">home</a></li>
+        <li class="marRight20"><a href="{% url 'posts:about' %}">about</a></li>
+        <li><a  href="{% url 'posts:types' %}">types</a></li>
+        <li><a class="active" href="{% url 'posts:list' %}">Ask Questions</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class='container'> 
+    <ul class='h'>
+        
+
+
+        {% if not request.user.is_authenticated %}
+        <li class='pull-right' class="marRight20"><a href='{% url "register" %}'>Register</a></li>
+        <li class='pull-right' class="marRight20"><a href='{% url "login" %}'>Login</a></li>
+        {% else %}
+        <li class='pull-right' class="marRight20"><a href='{% url "logout" %}'>Logout</a></li>
+        {% endif %}
+
+
+        <li class='pull-right' class="marRight20"><a href='{% url "posts:list" %}'>Home</a></li>
+
+        {% if request.user.is_authenticated %}
+          <li class='pull-right' class="marRight20"><a href='{% url "posts:create" %}'>Create Post</a></li>
+        {% endif %}
+    </ul>
+</div>
+<div class="panel-wrap">
+  <div class="panel-wrapper">
 <div class='col-sm-6 col-sm-offset-3'>
-    <h1>{{ title }}</h1>
+    <h1 class="marRight20">List of Questions</h1>
 <form method='GET' action='' class='row'>
-        <div class='col-sm-6'>
+        <div class='col-sm-12'>
             <div class='input-group'>
-                <input class='form-control' type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/>
+                <input class='form-control input-lg' type='text' name='q' placeholder='Search questions' value='{{ request.GET.q }}'/>
                 <span class='input-group-btn'>
                     <!-- <input class='btn btn-default' type='submit' value='Search' /> -->
-                    <button class='btn btn-default' type='submit'>Search <i class="fa fa-search"></i></button>
+                    <button class='btn btn-info btn-lg' type='submit'><i class="fa fa-search"></i></button>
                 </span>
             </div>
         </div>
+        <br><br><br>
 </form>
+
 {% for obj in object_list %}
 <div class="row">
   <div class="col-sm-12">
@@ -27,7 +86,6 @@
         <h3><a href='{{ obj.get_absolute_url }}'>{{ obj.title }}</a> <small>{{ obj.publish }}</small></h3>
         {% if obj.user.get_full_name %}<p>Author: {{ obj.user.get_full_name }}</p>{% endif %}
         {{ obj.get_markdown|truncatechars_html:120 }}
-        <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">View</a></p>
       </div>
     </div>
   </div>
@@ -35,11 +93,10 @@
 </div>
 {% endfor %}
 
-
-<div class="pagination">
+<div class="pagination" style=" font-size: 19px;">
     <span class="step-links">
         {% if object_list.has_previous %}
-            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+            <a style="color:red" href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
         {% endif %}
 
         <span class="current">
@@ -47,7 +104,7 @@
         </span>
 
         {% if object_list.has_next %}
-            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+            <a style="color:red" href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
         {% endif %}
     </span>
 </div>
@@ -56,5 +113,6 @@
 
 
 </div>
-
+  </div>
+</div>
 {% endblock content %}

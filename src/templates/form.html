@@ -1,8 +1,76 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% load crispy_forms_tags %}
+
+{% block head_title %}
+{{ instance.title }} | {{ block.super }}
+{% endblock head_title %}
+
+
+ {% block post_detail_link %}
+  <li><a href='{{ instance.get_absolute_url }}'>{{ instance.title }}</a></li>
+  {% endblock %}
+
 
 
 {% block content %}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' >
+
+
+
+<div class="header">
+  <div class="header-left-panel">
+    <div class="logo-wrap">
+      <div class="logo">
+        <h2></h2>
+        <h1 align="center">Cancer</h1>
+      </div>
+    </div>
+  </div>
+  <div class="header-right-panel">
+    <div class="header-right-panel-top">
+      <p>Call Us : 000 888 8888
+
+    </div>
+    <div class="menu">
+      <ul>
+        <li class="marRight20"><a   href="{% url 'posts:index' %}">home</a></li>
+        <li class="marRight20"><a href="{% url 'posts:about' %}">about</a></li>
+        <li><a  href="{% url 'posts:types' %}">types</a></li>
+        <li><a href="{% url 'posts:list' %}">Ask Questions</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<div class='container'> 
+    <ul class='h'>
+        
+
+
+        {% if not request.user.is_authenticated %}
+        <li class='pull-right' class="marRight20"><a href='{% url "register" %}'>Register</a></li>
+        <li class='pull-right' class="marRight20"><a href='{% url "login" %}'>Login</a></li>
+        {% else %}
+        <li class='pull-right' class="marRight20"><a href='{% url "logout" %}'>Logout</a></li>
+        {% endif %}
+
+        <li class='pull-right' class="marRight20"><a href='{% url "posts:list" %}'>Home</a></li>
+
+    </ul>
+</div>
+
+<div class="panel-wrap">
+  <div class="panel-wrapper">
+
+
+
 <div class='col-sm-6 col-sm-offset-3'>
 <h1>{{ title }}</h1>
 <hr/>
@@ -11,5 +79,5 @@
 {{ form|crispy }}
 <input type='submit' class='btn btn-default' value='{{ title }}' />
 </form>
-</div>
+</div></div></div>
 {% endblock content %}

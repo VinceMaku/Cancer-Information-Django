@@ -1,0 +1,55 @@
+{% extends 'base2.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="header">
+  <div class="header-left-panel">
+    <div class="logo-wrap">
+      <div class="logo">
+        <h2></h2>
+        <h1 align="center">Cancer</h1>
+      </div>
+    </div>
+  </div>
+  <div class="header-right-panel">
+    <div class="header-right-panel-top">
+      <p>Call Us : 000 888 8888
+
+    </div>
+    <div class="menu">
+      <ul>
+        <li class="marRight20"><a href="{% url 'posts:index' %}">home</a></li>
+        <li class="marRight20"><a class="active" href="{% url 'posts:about' %}">about</a></li>
+        <li><a  href="{% url 'posts:types' %}">types</a></li>
+        <li><a href="{% url 'posts:list' %}">Ask Questions</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <div class="page-wrapper">
+    <div class="primary-content marRight30">
+      <div class="mid-panel">
+        <div class="mid-panel-content">
+
+          <div class="title">
+            <h1>About</h1>
+          </div>
+          <div class="border"></div>
+		  <p>Cancer is one of the scariest words in the English language. When you hear the word as part of a diagnosis, it's natural to feel many emotions, especially fear.</p>
+		  <p>A cancer diagnosis can cause you and your family a great deal of stress, but you have many resources to help you. You owe it to yourself to learn as much as possible about your diagnosis and how it can be treated. Knowledge is power, and it can help you deal with this disease.</p>
+		  
+          <h2>What are the causes of cancer?</h2>
+		  <p>Many factors can cause the development of cancer in the body. Some of these factors, such as heredity (family members who have the disease) cannot be avoided. Others, such as lifestyle, can be controlled.</p>
+		  <p>For instance, the use of tobacco is one of the main causes of cancer, especially lung cancer. Tobacco use, whether in the form of smoking, chewing, or exposure to second-hand smoke (smoking by others), can also cause cancer of the mouth and larynx, esophagus, throat, and many other parts of the body.</p>
+
+        </div>
+      </div>
+    </div>
+
+	
+  </div>
+</div>
+{% endblock %}
+

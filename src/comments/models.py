@@ -57,3 +57,46 @@ class Comment(models.Model):
 
 
 
+class UserComment(models.Model):
+    user        = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    parent      = models.ForeignKey("self", null=True, blank=True)
+
+    content     = models.TextField()
+    timestamp   = models.DateTimeField(auto_now_add=True)
+
+    objects = CommentManager()
+
+    class Meta:
+        ordering = ['-timestamp']
+
+
+    def __unicode__(self):  
+        return str(self.user.username)
+
+    def __str__(self):
+        return str(self.user.username)
+
+    def get_absolute_url(self):
+        return reverse("comments:Userthread", kwargs={"id": self.id})
+
+    def get_delete_url(self):
+        return reverse("comments:Userdelete", kwargs={"id": self.id})
+        
+    def children(self): #replies
+        return UserComment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        if self.parent is not None:
+            return False
+        return True
+
+
+
+
+
+
+

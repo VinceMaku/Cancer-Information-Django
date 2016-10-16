@@ -1,0 +1,21 @@
+h1 {
+    color: #777777;
+}
+
+.wmd-panel{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.comment-reply{
+    display:none;
+}
+
+
+#preview-content{
+	color:black;
+}
+
+.background-wrap{width:50%; background:url(../images/pattern-1.jpg); overflow:hidden; margin-top:20px;}
+
+.panel-wr{width:45%; background:url(../images/pattern-2.jpg); overflow:hidden; margin-top:0px;}
